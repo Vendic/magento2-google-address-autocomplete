@@ -1,0 +1,35 @@
+<?php
+/**
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ * @var \Vendic\GoogleAutocomplete\ViewModel\Settings $settingsViewModel
+ */
+?>
+
+<?php $settingsViewModel = $block->getData('settings_view_model'); ?>
+
+<?php
+$apiKey = $escaper->escapeHtml($settingsViewModel->getApiKey());
+
+$scriptString = <<<script
+    window.vendic_google_autocomplete = {};
+    window.vendic_google_autocomplete.api_key = '$apiKey';
+script;
+?>
+
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
+
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "addressGoogleAutocomplete": {
+                    "component": "Vendic_GoogleAutocomplete/js/customer/address/autocomplete"
+                }
+            }
+        }
+    }
+}
+</script>

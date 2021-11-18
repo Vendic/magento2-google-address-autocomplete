@@ -1,6 +1,6 @@
 var google_maps_loaded_def = null;
 
-define(['jquery'],function ($) {
+define(['jquery'], function ($) {
     'use strict';
 
     if (!google_maps_loaded_def) {
@@ -10,7 +10,9 @@ define(['jquery'],function ($) {
             google_maps_loaded_def.resolve(window.google.maps);
         };
 
-        var api_key =  window.checkoutConfig.vendic_google_autocomplete.api_key;
+        var api_key = window.checkoutConfig === undefined ?
+            window.vendic_google_autocomplete.api_key :
+            window.checkoutConfig.vendic_google_autocomplete.api_key;
 
         if (api_key !== false && api_key !== null) {
             var url = 'https://maps.googleapis.com/maps/api/js?v=quarterly&key=' +

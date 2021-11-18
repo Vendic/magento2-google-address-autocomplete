@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block name="vendic.address.google-autocomplete" after="customer_address_edit"
+                   template="Vendic_GoogleAutocomplete::address/autocomplete.phtml">
+                <arguments>
+                    <argument name="settings_view_model" xsi:type="object">
+                        Vendic\GoogleAutocomplete\ViewModel\Settings
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>
