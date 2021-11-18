@@ -1,0 +1,24 @@
+{
+    "name": "vendic/magento2-google-address-autocomplete",
+    "description": "Add Google Autocomplete to customer street address",
+    "require": {
+        "php": "~7.4.0",
+        "magento/framework": "103.0.*",
+        "magento/magento-composer-installer": "*",
+        "vendic/magento2-admin-menu": "^1.0"
+    },
+    "require-dev": {
+        "magento/magento-coding-standard": "~6"
+    },
+    "type": "magento2-module",
+    "license": [
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Vendic\\GoogleAutocomplete\\": ""
+        }
+    }
+}
