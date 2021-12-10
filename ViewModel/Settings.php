@@ -23,4 +23,9 @@ class Settings implements ArgumentInterface
     {
         return $this->settings->getApiKey();
     }
+
+    public function getStreetLinesQty(): string
+    {
+        return $this->settings->getStreetLinesQty();
+    }
 }
