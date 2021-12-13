@@ -11,16 +11,20 @@ define([
 ) {
     'use strict';
 
+    var shippingAddresFieldsetPath = 'checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset';
+
     return Component.extend({
         defaults: {
             registry: {
-                street: 'checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset.street.0',
-                street_number: 'checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset.street.1',
-                city: 'checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset.city',
-                postcode: 'checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset.postcode',
-                country_id: 'checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset.country_id'
+                street: shippingAddresFieldsetPath + '.street.0',
+                street_number: shippingAddresFieldsetPath + '.street.1',
+                street_number_addition: shippingAddresFieldsetPath + '.street.2',
+                city: shippingAddresFieldsetPath + '.city',
+                postcode: shippingAddresFieldsetPath + '.postcode',
+                country_id: shippingAddresFieldsetPath + '.country_id'
             },
-            street: null
+            street: null,
+            streetLinesQty: 2
         },
 
         initialize: function () {
@@ -78,26 +82,78 @@ define([
         },
 
         parseAddress: function (place) {
-            var components = place.address_components;
+            var self = this,
+                components = place.address_components;
+
+            if (!components) {
+                return;
+            }
+
+            var street = '',
+                houseNumber,
+                houseNumberAddition,
+                city,
+                postcode,
+                countryId;
 
             components.forEach(function (component) {
-                var types = component.types,
-                    type;
-
-                type = types[0];
+                var type = component.types[0];
 
                 if (type === 'route') {
-                    this.setElementValue('street', component.long_name);
-                } else if (type === 'locality') {
-                    this.setElementValue('city', component.long_name);
-                } else if (type === 'postal_code') {
-                    this.setElementValue('postcode', component.long_name);
-                } else if (type === 'country') {
-                    this.setElementValue('country_id', component.short_name);
+                    if (self.streetLinesQty == '1') {
+                        street = component.long_name + ', ' + street;
+                    } else {
+                        street = component.long_name;
+                    }
                 } else if (type === 'street_number') {
-                    this.setElementValue('street_number', component.long_name);
+                    if (self.streetLinesQty == '1') {
+                        street += component.long_name;
+                    } else if (self.streetLinesQty == '2') {
+                        houseNumber = component.long_name;
+                    } else {
+                        var houseNumberParts = component.long_name.split(' ');
+
+                        houseNumber = houseNumberParts[0];
+
+                        /* eslint-disable-next-line max-depth */
+                        if (houseNumberParts[1]) {
+                            houseNumberAddition = houseNumberParts[1];
+                        } else {
+                            houseNumberAddition = '';
+                        }
+                    }
+                } else if (type === 'locality') {
+                    city = component.long_name;
+                } else if (type === 'postal_code') {
+                    postcode = component.long_name;
+                } else if (type === 'country') {
+                    countryId = component.short_name;
                 }
-            }.bind(this));
+            });
+
+            if (street) {
+                this.setElementValue('street', street);
+            }
+
+            if (houseNumber) {
+                this.setElementValue('street_number', houseNumber);
+            }
+
+            if (houseNumberAddition) {
+                this.setElementValue('street_number_addition', houseNumberAddition);
+            }
+
+            if (city) {
+                this.setElementValue('city', city);
+            }
+
+            if (postcode) {
+                this.setElementValue('postcode', postcode);
+            }
+
+            if (countryId) {
+                this.setElementValue('country_id', countryId);
+            }
         }
     });
 });
