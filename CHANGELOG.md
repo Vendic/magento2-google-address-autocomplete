@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 1.1.1 - 28-12-2021
 ### Fixed
 - [MAX-721](https://app.clickup.com/t/1y7qzta) Cleaned up housenumber addition field if address doesn't have housenumber addition 
+- [MAX-731](https://app.clickup.com/t/1ydazf0) Fixed parsing of the housenumber addition
  
 ## 1.1.0 - 13-12-2021
 ### Changed

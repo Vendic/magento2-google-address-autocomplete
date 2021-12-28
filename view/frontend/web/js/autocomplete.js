@@ -111,15 +111,11 @@ define([
                     } else if (self.streetLinesQty == '2') {
                         houseNumber = component.long_name;
                     } else {
-                        var houseNumberParts = component.long_name.split(' ');
+                        houseNumber = component.long_name.match(/\d+/)[0];
+                        houseNumberAddition = '';
 
-                        houseNumber = houseNumberParts[0];
-
-                        /* eslint-disable-next-line max-depth */
-                        if (houseNumberParts[1]) {
-                            houseNumberAddition = houseNumberParts[1];
-                        } else {
-                            houseNumberAddition = '';
+                        if (component.long_name.match(/[a-zA-Z]+/g) && component.long_name.match(/[a-zA-Z]+/g)[0]) {
+                            houseNumberAddition = component.long_name.match(/[a-zA-Z]+/g)[0];
                         }
                     }
                 } else if (type === 'locality') {
