@@ -11,10 +11,12 @@
 
 <?php
 $apiKey = $escaper->escapeHtml($settingsViewModel->getApiKey());
+$defaultCountryId = $escaper->escapeHtml($settingsViewModel->getDefaultCountryId());
 
 $scriptString = <<<script
     window.vendic_google_autocomplete = {};
     window.vendic_google_autocomplete.api_key = '$apiKey';
+    window.vendic_google_autocomplete.defaultCountryId = '$defaultCountryId';
 script;
 ?>
 

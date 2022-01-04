@@ -103,6 +103,7 @@ define([
                         houseNumber = component.long_name.match(/\d+/)[0];
                         houseNumberAddition = '';
 
+                        /* eslint-disable-next-line max-depth */
                         if (component.long_name.match(/[a-zA-Z]+/g) && component.long_name.match(/[a-zA-Z]+/g)[0]) {
                             houseNumberAddition = component.long_name.match(/[a-zA-Z]+/g)[0];
                         }
