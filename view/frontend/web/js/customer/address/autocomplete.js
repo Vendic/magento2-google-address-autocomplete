@@ -126,6 +126,8 @@ define([
 
             if (houseNumberAddition) {
                 this.setElementValue('street_number_addition', houseNumberAddition);
+            } else {
+                this.setElementValue('street_number_addition', '');
             }
 
             if (city) {
