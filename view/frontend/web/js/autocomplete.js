@@ -11,19 +11,26 @@ define([
 ) {
     'use strict';
 
-    var shippingAddresFieldsetPath = 'checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset';
+    var checkoutShippingAddresFieldsetPath = 'checkout.steps.shipping-step.shippingAddress.shipping-address-fieldset';
 
     return Component.extend({
         defaults: {
-            registry: {
-                street: shippingAddresFieldsetPath + '.street.0',
-                street_number: shippingAddresFieldsetPath + '.street.1',
-                street_number_addition: shippingAddresFieldsetPath + '.street.2',
-                city: shippingAddresFieldsetPath + '.city',
-                postcode: shippingAddresFieldsetPath + '.postcode',
-                country_id: shippingAddresFieldsetPath + '.country_id'
+            checkoutFields: {
+                street: checkoutShippingAddresFieldsetPath + '.street.0',
+                street_number: checkoutShippingAddresFieldsetPath + '.street.1',
+                street_number_addition: checkoutShippingAddresFieldsetPath + '.street.2',
+                city: checkoutShippingAddresFieldsetPath + '.city',
+                postcode: checkoutShippingAddresFieldsetPath + '.postcode',
+                country_id: checkoutShippingAddresFieldsetPath + '.country_id'
             },
-            street: null,
+            customerAddressFields: {
+                street: 'street_1',
+                street_number: 'street_2',
+                street_number_addition: 'street_3',
+                city: 'city',
+                postcode: 'zip',
+                country_id: 'country'
+            },
             streetLinesQty: 2
         },
 
@@ -62,15 +69,19 @@ define([
         },
 
         getElement: function (name) {
-            var elementRegistry = uiRegistry.get(this.registry[name]);
+            if ($('body').hasClass('checkout-index-index')) {
+                var elementRegistry = uiRegistry.get(this.checkoutFields[name]);
 
-            if (elementRegistry === undefined) {
-                return false;
+                if (elementRegistry === undefined) {
+                    return false;
+                }
+
+                var elementId = elementRegistry.uid;
+
+                return $('#' + elementId);
             }
 
-            var elementId = elementRegistry.uid;
-
-            return $('#' + elementId);
+            return $('#' + this.customerAddressFields[name]);
         },
 
         setElementValue: function (name, value) {

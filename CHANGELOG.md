@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.3.0 - 11-01-2022
+### Changed
+- Refactored module to get rid of code duplication in js files
+
 ## 1.2.0 - 04-01-2022
 ### Changed
 - [MAX-720](https://app.clickup.com/t/1y7qxvb) Set region autocomplete based on the default country id
