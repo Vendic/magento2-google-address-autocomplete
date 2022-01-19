@@ -147,10 +147,12 @@ define([
                 this.setElementValue('street_number', houseNumber);
             }
 
-            if (houseNumberAddition) {
-                this.setElementValue('street_number_addition', houseNumberAddition);
-            } else {
-                this.setElementValue('street_number_addition', '');
+            if (parseFloat(self.streetLinesQty) > 2) {
+                if (houseNumberAddition) {
+                    this.setElementValue('street_number_addition', houseNumberAddition);
+                } else {
+                    this.setElementValue('street_number_addition', '');
+                }
             }
 
             if (city) {
