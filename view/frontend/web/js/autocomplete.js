@@ -21,7 +21,8 @@ define([
                 street_number_addition: checkoutShippingAddresFieldsetPath + '.street.2',
                 city: checkoutShippingAddresFieldsetPath + '.city',
                 postcode: checkoutShippingAddresFieldsetPath + '.postcode',
-                country_id: checkoutShippingAddresFieldsetPath + '.country_id'
+                country_id: checkoutShippingAddresFieldsetPath + '.country_id',
+                company: checkoutShippingAddresFieldsetPath + '.company'
             },
             customerAddressFields: {
                 street: 'street_1',
@@ -29,7 +30,8 @@ define([
                 street_number_addition: 'street_3',
                 city: 'city',
                 postcode: 'zip',
-                country_id: 'country'
+                country_id: 'country',
+                company: 'company'
             },
             streetLinesQty: 2
         },
@@ -49,14 +51,25 @@ define([
                 setTimeout(function () {
                     if (!googleMapError) {
                         var autocomplete,
-                            street = self.getElement('street');
+                            companyAutocomplete,
+                            street = self.getElement('street'),
+                            companyField = self.getElement('company');
 
                         autocomplete = new maps.places.Autocomplete(street[0]);
+                        companyAutocomplete = new maps.places.Autocomplete(companyField[0]);
 
                         autocomplete.addListener('place_changed', function () {
                             var place = autocomplete.getPlace();
 
                             self.parseAddress(place);
+                        });
+                        companyAutocomplete.addListener('place_changed', function () {
+                            var place = companyAutocomplete.getPlace();
+
+                            self.parseAddress(place);
+                            if (place && place.name) {
+                                self.setElementValue('company', place.name);
+                            }
                         });
                     }
                 }, 4000);
