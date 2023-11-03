@@ -4,14 +4,14 @@
     "require": {
         "php": "~7.4.0|~8.1",
         "magento/framework": "103.0.*",
-        "magento/magento-composer-installer": "*",
-        "vendic/magento2-admin-menu": "^1.0"
+        "magento/magento-composer-installer": "*"
     },
     "require-dev": {
         "magento/magento-coding-standard": "~6"
     },
     "type": "magento2-module",
     "license": [
+        "MIT"
     ],
     "autoload": {
         "files": [
