@@ -10,8 +10,8 @@
                  type="text"
                  sortOrder="1"
                  showInDefault="1"
-                 showInWebsite="0"
-                 showInStore="0">
+                 showInWebsite="1"
+                 showInStore="1">
             <label>Google Autocomplete</label>
             <tab>vendic</tab>
             <resource>Vendic_GoogleAutocomplete::config</resource>
@@ -20,16 +20,16 @@
                    type="text"
                    sortOrder="10"
                    showInDefault="1"
-                   showInWebsite="0"
-                   showInStore="0">
+                   showInWebsite="1"
+                   showInStore="1">
                 <label>General</label>
                 <field id="api_key"
                        translate="label"
                        type="text"
                        sortOrder="20"
                        showInDefault="1"
-                       showInWebsite="0"
-                       showInStore="0">
+                       showInWebsite="1"
+                       showInStore="1">
                     <label>API Key</label>
                 </field>
             </group>
